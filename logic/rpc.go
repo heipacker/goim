@@ -62,7 +62,7 @@ func (r *RPC) Connect(arg *proto.ConnArg, reply *proto.ConnReply) (err error) {
 		uid int64
 		seq int32
 	)
-	uid, reply.RoomId = r.auther.Auth(arg.Token)
+	uid, reply.RoomId, err = r.auther.Auth(arg.Token)
 	if seq, err = connect(uid, arg.Server, reply.RoomId); err == nil {
 		reply.Key = encode(uid, seq)
 	}
