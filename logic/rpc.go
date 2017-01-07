@@ -64,6 +64,7 @@ func (r *RPC) Connect(arg *proto.ConnArg, reply *proto.ConnReply) (err error) {
 	)
 	uid, reply.RoomId, err = r.auther.Auth(arg.Token)
 	if err != nil {
+		log.Error("Auth error(%v)", err)
 		return
 	}
 	if seq, err = connect(uid, arg.Server, reply.RoomId); err == nil {
