@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"goim/libs/define"
+	"strconv"
 	"strings"
 )
 
@@ -24,13 +25,16 @@ func (a *DefaultAuther) Auth(token string) (userId int64, roomId int32, err erro
 		err = errors.New("token is empty")
 		return
 	}
-	userId = user_array[0]
+	userId, err = strconv.ParseInt(user_array[0], 10, 64)
 	if userId == "" {
 		err = errors.New("userId is empty")
 		return
 	}
+	if err != nil {
+		return
+	}
 	if len(user_array) == 2 {
-		roomId = user_array[1]
+		roomId, err = strconv.ParseInt(user_array[1], 10, 64)
 	} else {
 		roomId = define.NoRoom
 	}
