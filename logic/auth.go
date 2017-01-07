@@ -25,12 +25,9 @@ func (a *DefaultAuther) Auth(token string) (userId int64, roomId int32, err erro
 		err = errors.New("token is empty")
 		return
 	}
-	userId, err = strconv.ParseInt(user_array[0], 10, 64)
-	if userId == "" {
-		err = errors.New("userId is empty")
-		return
-	}
-	if err != nil {
+	if userId, err = strconv.ParseInt(user_array[0], 10, 64); err != nil {
+		userId = 0
+		roomId = define.NoRoom
 		return
 	}
 	if len(user_array) == 2 {
