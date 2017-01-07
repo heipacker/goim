@@ -31,7 +31,9 @@ func (a *DefaultAuther) Auth(token string) (userId int64, roomId int32, err erro
 		return
 	}
 	if len(user_array) == 2 {
-		roomId, err = strconv.ParseInt(user_array[1], 10, 32)
+		var roomId64 int64
+		roomId64, err = strconv.ParseInt(user_array[1], 10, 32)
+		roomId = int32(roomId64)
 	} else {
 		roomId = define.NoRoom
 	}
