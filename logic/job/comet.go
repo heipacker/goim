@@ -7,9 +7,10 @@ import (
 	"goim/libs/net/xrpc"
 	"goim/libs/proto"
 
-	log "github.com/thinkboy/log4go"
 	"strings"
 	"sync/atomic"
+
+	log "github.com/thinkboy/log4go"
 )
 
 var (
@@ -37,6 +38,7 @@ type Comet struct {
 	pushRoutines         []chan *proto.MPushMsgArg
 	broadcastRoutines    []chan *proto.BoardcastArg
 	roomRoutines         []chan *proto.BoardcastRoomArg
+	_                    uint32
 	pushRoutinesNum      uint64
 	roomRoutinesNum      uint64
 	broadcastRoutinesNum uint64
